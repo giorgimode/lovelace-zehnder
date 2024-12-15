@@ -109,7 +109,7 @@ class ZehnderCard extends LitElement {
       padding: 10px;
     }
     .bg {
-      background-image: url(/local/lovelace-zehnder/zehnder_heat.png);
+      background-image: url(https://raw.githubusercontent.com/giorgimode/lovelace-zehnder/master/zehnder_heat.png);
       height: 200px;
       background-size: contain;
       background-repeat: no-repeat;
