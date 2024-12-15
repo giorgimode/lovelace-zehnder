@@ -29,7 +29,7 @@ class ZehnderCard extends LitElement {
                   <div>${this.hass.states[this.config.entity].attributes.temperature}°C</div>
                   <br><br><br><br>
                   <div><ha-icon class="spin" icon="mdi:${({'auto': 'fan', 'off': 'fan-off', low: 'fan-speed-1', medium: 'fan-speed-2', high: 'fan-speed-3'}[this.hass.states[this.config.entity].attributes.fan_mode])}"></ha-icon></div>
-                <div title="Filter age" style="font-size: small; padding: 20px"><ha-icon icon="mdi:clock-time-eight"></ha-icon>${(this.hass.states[`sensor.${this.device_name}_filter_hours`].state / 720).toFixed(1)}months</div>
+                <div title="Filter age" style="font-size: small; padding: 20px"><ha-icon icon="mdi:clock-time-eight"></ha-icon 0.4months</div>
               </div>
               <div class="flex-col-in">
                   <div>${this.hass.states[`sensor.${this.device_name}_return_air_temperature`].state}°C</div>
