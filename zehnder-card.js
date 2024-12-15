@@ -28,6 +28,7 @@ class ZehnderCard extends LitElement {
               <div class="flex-col-main">
                   <div>${this.hass.states[this.config.entity].attributes.temperature}°C</div>
                   <div><ha-icon class="spin" icon="mdi:${({'auto': 'fan', 'off': 'fan-off', low: 'fan-speed-1', medium: 'fan-speed-2', high: 'fan-speed-3'}[this.hass.states[this.config.entity].attributes.fan_mode])}"></ha-icon></div>
+                <div title="Filter usage in hours">>${this.hass.states[`sensor.${this.device_name}_filter_hours`].state}hrs</div>
               </div>
               <div class="flex-col-in">
                   <div>${this.hass.states[`sensor.${this.device_name}_return_air_temperature`].state}°C</div>
@@ -41,8 +42,6 @@ class ZehnderCard extends LitElement {
       <div class="info-row">
       ${this.getFanTmpl()}
       ${this.getAirFilterTmpl()}
-      ${this.getBypassTmpl()}
-      ${this.getPreHeatTmpl()}
       ${this.getSummerModeTmpl()}
       </div>
     </ha-card>
@@ -51,41 +50,25 @@ class ZehnderCard extends LitElement {
 
   getFanTmpl(){
     if(this.hass.states[`binary_sensor.${this.device_name}_supply_fan_active`].state == 'on'){
-      return html`<ha-icon icon="mdi:fan"></ha-icon>`;
+      return html`<ha-icon icon="mdi:fan" title="Fan on"></ha-icon>`;
     }else{
-      return html`<ha-icon class="inactive" icon="mdi:fan"></ha-icon>`;
+      return html`<ha-icon class="inactive" icon="mdi:fan" title="Fan off"></ha-icon>`;
     }
   }
 
   getAirFilterTmpl(){
     if(this.hass.states[`sensor.${this.device_name}_filter_status`].state == 'Full'){
-      return html`<ha-icon class="warning" icon="mdi:air-filter"></ha-icon>`;
+      return html`<ha-icon class="warning" icon="mdi:air-filter" title="Air Filters Needs To Be Changed"></ha-icon>`;
     }else{
-      return html`<ha-icon class="inactive" icon="mdi:air-filter"></ha-icon>`;
-    }
-  }
-
-  getBypassTmpl(){
-    if(this.hass.states[`binary_sensor.${this.device_name}_bypass_valve_open`].state == 'on'){
-      return html`<ha-icon icon="mdi:electric-switch"></ha-icon>`;
-    }else{
-      return html`<ha-icon class="inactive" icon="mdi:electric-switch"></ha-icon>`;
-    }
-  }
-
-  getPreHeatTmpl(){
-    if(this.hass.states[`binary_sensor.${this.device_name}_preheating_state`].state == 'on'){
-      return html`<ha-icon icon="mdi:radiator"></ha-icon>`;
-    }else{
-      return html`<ha-icon class="inactive" icon="mdi:radiator"></ha-icon>`;
+      return html`<ha-icon class="inactive" icon="mdi:air-filter" title="Air Filter Has No Warnings"></ha-icon>`;
     }
   }
 
   getSummerModeTmpl(){
     if(this.hass.states[`binary_sensor.${this.device_name}_summer_mode`].state == 'off'){
-      return html`<ha-icon icon="mdi:snowflake"></ha-icon>`;
+      return html`<ha-icon icon="mdi:snowflake" title="Summer Mode off"></ha-icon>`;
     }else{
-      return html`<ha-icon class="inactive" icon="mdi:weather-sunny"></ha-icon>`;
+      return html`<ha-icon class="inactive" icon="mdi:weather-sunny" title="Summer Mode On"></ha-icon>`;
     }
   }
 
